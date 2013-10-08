@@ -10,8 +10,5 @@
   ],
   "devDependencies": {
     "mocha": "*"
-  },
-  "dependencies": {
-    "inherit-component": "git://github.com/component/inherit"
   }
 }
