@@ -1,0 +1,17 @@
+{
+  "name": "errors",
+  "repository": "git://github.com/segmentio/errors.git",
+  "version": "0.0.1",
+  "description": "Simple abstraction to handle custom errors in your codebase.",
+  "keywords": [
+    "error",
+    "map",
+    "wrap"
+  ],
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "dependencies": {
+    "inherit-component": "git://github.com/component/inherit"
+  }
+}
