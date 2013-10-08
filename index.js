@@ -28,7 +28,7 @@ function Errors () {
 Errors.prototype.add = function (name, Constructor) {
   if (typeof name === 'object') {
     for (var key in name) this.add(key, name[key]);
-    return;
+    return this;
   }
 
   if (typeof name === 'function') {

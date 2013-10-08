@@ -27,7 +27,8 @@ describe('errors', function () {
     });
 
     it('should allow adding dictionaries', function () {
-      this.errors.add(Errors);
+      var self = this.errors.add(Errors);
+      assert(self === this.errors);
       assert(this.errors.Errors.DivideByZero === Errors.DivideByZero);
       assert(this.errors.Errors.MongoDuplicate === Errors.MongoDuplicate);
     });

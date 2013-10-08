@@ -1,0 +1,8 @@
+{
+  "name": "errors",
+  "repo": "segmentio/errors",
+  "version": "0.0.2",
+  "description": "Simple abstraction to handle custom errors in your codebase.",
+  "keywords": ["error", "map", "wrap"],
+  "scripts": ["index.js"]
+}

@@ -1,7 +1,7 @@
 {
   "name": "errors",
   "repository": "git://github.com/segmentio/errors.git",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple abstraction to handle custom errors in your codebase.",
   "keywords": [
     "error",
