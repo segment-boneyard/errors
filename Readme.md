@@ -1,4 +1,3 @@
-
 # errors
 
   Simple abstraction to handle custom errors in your codebase.
@@ -29,8 +28,7 @@ errors.add('Random', RandomError);
 
 function get (id, callback) {
   mongo.findById(id, function (err, res) {
-    if (errors.match(err)) return callback(errors.wrap(err));
-    callback(err, res);
+    callback(errors.wrap(err), res);
   }
 }
 ```
