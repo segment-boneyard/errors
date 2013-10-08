@@ -46,35 +46,42 @@ Errors.prototype.add = function (name, Constructor) {
 
 
 /**
- * Wrap a `callback` to convert known errors to their respective instances.
+ * Find an `err`'s constructor in our `Errors` dictionary.
  *
- * @param {Function} callback
+ * @param {Error} err
  * @return {Function}
  */
 
-Errors.prototype.wrap = function (callback) {
-  var self = this;
-  return function (err, args) {
-    args = [].slice.call(arguments);
-    var Error = self.match(err);
-    if (Error) args[0] = new Error(err);
-    callback.apply(this, args);
-  };
-};
-
-
-/**
- * Match an `err` against all of our errors's matcher functions.
- *
- * @param {Error} err
- * @return {Function|Null}
- * @api private
- */
-
-Errors.prototype.match = function (err) {
+Errors.prototype.find = function (err) {
   for (var key in this.Errors) {
     var Error = this.Errors[key];
     if (Error.is(err)) return Error;
   }
   return null;
+};
+
+
+/**
+ * Check if `err` matches one of our constructors.
+ *
+ * @param {Error} err
+ * @return {Boolean}
+ */
+
+Errors.prototype.match = function (err) {
+  return !! this.find(err);
+};
+
+
+/**
+ * Wrap an `err` in its appropriate custom error constructor.
+ *
+ * @param {Error} err
+ * @return {Error}
+ */
+
+Errors.prototype.wrap = function (err) {
+  var Constructor = this.find(err);
+  if (!Constructor) return err instanceof Error ? err : null;
+  return new Constructor(err);
 };

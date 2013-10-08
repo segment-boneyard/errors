@@ -28,7 +28,10 @@ errors.add('Random', RandomError);
  */
 
 function get (id, callback) {
-  mongo.findById(id, errors.wrap(callback));
+  mongo.findById(id, function (err, res) {
+    if (errors.match(err)) return callback(errors.wrap(err));
+    callback(err, res);
+  }
 }
 ```
 
@@ -70,6 +73,10 @@ RandomError.is = function (err) {
   
   Add a new error `Constructor` to the map with `name`. The `Constructor` must have a function to check whether the error is its type exposed as `.is`.
 
-### #wrap(callback)
+### #match(error)
+
+  Check with the `error` matches any of the rules of the custom constructors.
+
+### #wrap(error)
   
-  Wrap a `callback` to convert known errors to their respective instances.
+  Wrap an `error` in its appropriate custom constructor.

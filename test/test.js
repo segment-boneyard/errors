@@ -34,24 +34,42 @@ describe('errors', function () {
     });
   });
 
+  describe('#find', function () {
+    beforeEach(function () {
+      this.errors.add(Errors);
+    });
+
+    it('should find an error', function () {
+      var err = this.errors.find(new Error('Division by 0'));
+      assert(err === Errors.DivideByZero);
+    });
+
+    it('should not find an unknown error', function () {
+      var err = this.errors.find(new Error());
+      assert(!err);
+    });
+
+    it('should not find a non-error', function () {
+      var err = this.errors.find(4);
+      assert(!err);
+    });
+  });
+
   describe('#match', function () {
     beforeEach(function () {
       this.errors.add(Errors);
     });
 
     it('should match an error', function () {
-      var err = this.errors.match(new Error('Division by 0'));
-      assert(err === Errors.DivideByZero);
+      assert(this.errors.match(new Error('Division by 0')));
     });
 
     it('should not match an unknown error', function () {
-      var err = this.errors.match(new Error());
-      assert(!err);
+      assert(!this.errors.match(new Error()));
     });
 
     it('should not match a non-error', function () {
-      var err = this.errors.match(4);
-      assert(!err);
+      assert(!this.errors.match(4));
     });
   });
 
@@ -60,34 +78,22 @@ describe('errors', function () {
       this.errors.add(Errors);
     });
 
-    it('should return a function', function () {
-      var callback = this.errors.wrap(function () {});
-      assert(typeof callback === 'function');
-    });
-
-    it('should match a known error', function () {
-      var callback = this.errors.wrap(function (err, user) {
-        assert(err);
-        assert(err instanceof Errors.MongoDuplicate);
-      });
-      callback(new Error('E11000'));
+    it('should wrap a known error', function () {
+      var err = this.errors.wrap(new Error('E11000'));
+      assert(err);
+      assert(err instanceof Errors.MongoDuplicate);
     });
 
     it('should pass through an unknown error', function () {
       var error = new Error();
-      var callback = this.errors.wrap(function (err, user) {
-        assert(err);
-        assert(err === error);
-      });
-      callback(error);
+      var err = this.errors.wrap(error);
+      assert(err);
+      assert(err === error);
     });
 
-    it('should pass through successful arguments', function () {
-      var callback = this.errors.wrap(function (err, user) {
-        assert(!err);
-        assert(user.id === 'id');
-      });
-      callback(null, { id: 'id' });
+    it('should pass through null', function () {
+      var err = this.errors.wrap(null);
+      assert(err === null);
     });
   });
 
