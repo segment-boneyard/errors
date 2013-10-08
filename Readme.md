@@ -12,7 +12,7 @@
 ```js
 var inherit = require('util').inherits;
 var RandomError = require('./random-error');
-var errors = require('error-map')();
+var errors = require('errors')();
 
 
 /**
