@@ -29,7 +29,7 @@ errors.add('Random', RandomError);
 function get (id, callback) {
   mongo.findById(id, function (err, res) {
     callback(errors.wrap(err), res);
-  }
+  });
 }
 ```
 
@@ -54,7 +54,7 @@ util.inherits(RandomError, Error);
 
 RandomError.is = function (err) {
   return err && err.code == 1042;
-}
+};
 ```
 
 ## API
