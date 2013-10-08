@@ -10,7 +10,6 @@
 ## Example
 
 ```js
-var inherit = require('util').inherits;
 var RandomError = require('./random-error');
 var errors = require('errors')();
 
@@ -36,6 +35,9 @@ function get (id, callback) {
 ```js
 // random-error.js
 
+var inherit = require('util').inherits;
+
+
 /**
  * Random Error.
  */
@@ -45,7 +47,7 @@ function RandomError (err) {
   Error.captureStackTrace(this, arguments.callee);
 }
 
-util.inherits(RandomError, Error);
+inherit(RandomError, Error);
 
 
 /**
