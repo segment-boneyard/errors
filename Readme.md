@@ -2,8 +2,10 @@
 
   Simple abstraction to handle custom errors in your codebase.
 
+  [![Build Status](https://travis-ci.org/segmentio/errors.png?branch=master)](https://travis-ci.org/segmentio/errors)
+
 ## Installation
-  
+
     $npm install segmentio/errors
     $component install segmentio/errors
 
@@ -62,15 +64,15 @@ RandomError.is = function (err) {
 ## API
 
 ### errors()
-  
+
   Initialize a new error map.
 
 ### .Errors
-  
+
   The map of error constructors, so you can expose it so external APIs can do things like check `instanceof`.
 
 ### #add(name, Constructor)
-  
+
   Add a new error `Constructor` to the map with `name`. The `Constructor` must have a function to check whether the error is its type exposed as `.is`.
 
 ### #match(error)
@@ -78,5 +80,5 @@ RandomError.is = function (err) {
   Check with the `error` matches any of the rules of the custom constructors.
 
 ### #wrap(error)
-  
+
   Wrap an `error` in its appropriate custom constructor.
